@@ -4,7 +4,7 @@
 (ql:quickload "trivial-dump-core")
 
 ;; #+sbcl
-;; (sb-ext:save-lisp-and-die "main-sbcl" :executable t :toplevel 'ctcl::main :save-runtime-options t)
+;; (sb-ext:save-lisp-and-die "main-sbcl" :executable t :toplevel 'jcrypt::main :save-runtime-options t)
 
 #+(or ccl clisp sbcl)
 (trivial-dump-core:save-executable "jcrypt" #'jcrypt::main)
