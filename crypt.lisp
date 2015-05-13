@@ -1,5 +1,6 @@
 (ql:quickload 'ironclad)
 (in-package :jcrypt)
+(declare (optimize (speed 3) (safety 0) (space 0) (debug 1)))
 
 (defun slurp-file (file)
   (with-open-file (in file :direction :input :element-type '(unsigned-byte 8))
