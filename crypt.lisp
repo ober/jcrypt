@@ -7,7 +7,7 @@
       (read-sequence seq in)
       seq)))
 
-(defvar iv
+(defvar *iv*
   (make-array 16 :element-type '(unsigned-byte 8)
 	      :initial-contents '(21 130 211 125 115 2 235 232 105 65 212 144 205 197 94 170)))
 
@@ -19,11 +19,10 @@
   (slurp-file "~/.jcrypt.iv"))
 
 (defun encrypt-file (file pass out)
-  (let* ((iv (read-iv))
-	 (data (slurp-file file))
+  (let* ((data (slurp-file file))
 	 (key (ironclad:ascii-string-to-byte-array pass))
 	 (cipher (ironclad:make-cipher 'ironclad:rc6
-				       :initialization-vector iv
+				       :initialization-vector *iv*
 				       :key key
 				       :mode 'ironclad:cfb)))
     (ironclad:encrypt-in-place cipher data)
@@ -35,11 +34,10 @@
     (encrypt-file infile key out)))
 
 (defun decrypt-file (file pass out)
-  (let* ((iv (read-iv))
-	 (data (slurp-file file))
+  (let* ((data (slurp-file file))
 	 (key (ironclad:ascii-string-to-byte-array pass))
 	 (cipher (ironclad:make-cipher 'ironclad:rc6
-				       :initialization-vector iv
+				       :initialization-vector *iv*
 				       :key key
 				       :mode 'ironclad:cfb)))
     (ironclad:decrypt-in-place cipher data)
@@ -49,6 +47,3 @@
   (with-open-file (out outfile :direction :output :if-exists :supersede
 		       :element-type '(unsigned-byte 8))
     (decrypt-file infile key out)))
-
-;; (defun main()
-;;   (wank-encrypt-file "~/disk2" "omg" "~/disk.sec"))
