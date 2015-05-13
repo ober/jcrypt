@@ -3,10 +3,10 @@
 #+(or ccl clisp sbcl)
 (ql:quickload "trivial-dump-core")
 
-;; #+sbcl
-;; (sb-ext:save-lisp-and-die "main-sbcl" :executable t :toplevel 'jcrypt::main :save-runtime-options t)
+#+sbcl
+(sb-ext:save-lisp-and-die "main-sbcl" :compression 9 :executable t :toplevel 'jcrypt::main :save-runtime-options t)
 
-#+(or ccl clisp sbcl)
+#+(or ccl clisp)
 (trivial-dump-core:save-executable "jcrypt" #'jcrypt::main)
 
 #+lispworks
