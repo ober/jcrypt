@@ -1,6 +1,5 @@
 (ql:quickload 'ironclad)
 (in-package :jcrypt)
-(declare (optimize (speed 3) (safety 0) (space 0) (debug 1)))
 
 (defun slurp-file (file)
   (with-open-file (in file :direction :input :element-type '(unsigned-byte 8))
@@ -20,6 +19,8 @@
   (slurp-file "~/.jcrypt.iv"))
 
 (defun encrypt-file (file pass out)
+  (declare (optimize (speed 3) (safety 0) (space 0) ))
+
   (let* ((data (slurp-file file))
 	 (key (ironclad:ascii-string-to-byte-array pass))
 	 (cipher (ironclad:make-cipher 'ironclad:rc6
