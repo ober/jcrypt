@@ -7,16 +7,14 @@
       (read-sequence seq in)
       seq)))
 
-(defvar *iv*
-  (make-array 16 :element-type '(unsigned-byte 8)
-	      :initial-contents '(21 130 211 125 115 2 235 232 105 65 212 144 205 197 94 170)))
+(defvar *iv* (make-array 16 :element-type '(unsigned-byte 8) :initial-contents '(21 130 211 125 115 2 235 232 105 65 212 144 205 197 94 170)))
 
-(defun gen-new-iv ()
+(defun gen-new-iv (size)
   (with-open-file (out "~/.jcrypt.iv" :direction :output :if-does-not-exist :create :element-type '(unsigned-byte 8))
-    (write-sequence (ironclad:random-data 16 (ironclad:make-prng :fortuna)) out)))
+    (write-sequence (ironclad:random-data size (ironclad:make-prng :fortuna)) out)))
 
 (defun read-iv ()
-  (slurp-file "~/.jcrypt.iv"))
+  (defvar *iv* (slurp-file "~/.jcrypt.iv")))
 
 (defun encrypt-file (file pass out)
   ;;(declare (optimize (speed 3) (safety 3) (space 0) ))
