@@ -20,7 +20,7 @@
   (let* ((args (argv))
 	 (verb (nth 1 args)))
     (cond
-      ((equal "encrypt" verb) (wank-encrypt-file (nth 2 args) (nth 3 args) (nth 4 args)))
-      ((equal "decrypt" verb) (wank-decrypt-file (nth 2 args) (nth 3 args) (nth 4 args)))
+      ((equal "encrypt" verb) (time (wank-encrypt-file (nth 2 args) (nth 3 args) (nth 4 args))))
+      ((equal "decrypt" verb) (time (wank-decrypt-file (nth 2 args) (nth 3 args) (nth 4 args))))
       ((equal "gen-new-iv" verb) (gen-new-iv))
       (t (usage (nth 0 args))))))

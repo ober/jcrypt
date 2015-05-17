@@ -10,4 +10,4 @@
 (trivial-dump-core:save-executable "jcrypt" #'jcrypt::main)
 
 #+lispworks
-(deliver 'jcrypt::main "jcrypt" 4 :multiprocessing t :keep-eval t)
+(deliver 'jcrypt::main "jcrypt" 1 :multiprocessing t :keep-eval t)

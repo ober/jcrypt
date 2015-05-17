@@ -19,7 +19,7 @@
   (slurp-file "~/.jcrypt.iv"))
 
 (defun encrypt-file (file pass out)
-  (declare (optimize (speed 3) (safety 0) (space 0) ))
+  ;;(declare (optimize (speed 3) (safety 3) (space 0) ))
 
   (let* ((data (slurp-file file))
 	 (key (ironclad:ascii-string-to-byte-array pass))
